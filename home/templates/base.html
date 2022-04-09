@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome to Anime E-Store</title>
+
+        <!-- Favicon -->
+        <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Nav Bar Start -->
+        <div class="nav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand">MENU</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto">
+                            <a href="/" class="nav-item nav-link active">Home</a>
+
+                            <a href="/product_list" class="nav-item nav-link active">Product List</a>
+
+                            {% if user.is_authenticated %}
+                            <a href="/contact" class="nav-item nav-link active">Contact</a>
+
+                            <a href="/account" class="nav-item nav-link active">My Account</a>
+                            {% endif %}
+                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="navbar-nav ml-auto">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ user.username }}</a>
+                                <div class="dropdown-menu">
+                                    <a href="/accounts/logout" class="dropdown-item">Logout</a>
+                                   </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="navbar-nav ml-auto">
+                            <div class="nav-item dropdown">
+                                <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
+                                <div class="dropdown-menu">
+                                    <a href="/accounts/login" class="dropdown-item">Login</a>
+                                    <a href="/signup" class="dropdown-item">Register</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+
+        <!-- Bottom Bar Start -->
+        <div class="bottom-bar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="{% static 'img/logo.png' %}" alt="Logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <form method = "GET" action="{% url 'home:search' %}">
+                            <div class="search">
+                                <input name="search" type="text" placeholder="search" >
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        {% if user.is_authenticated %}
+                        <div class="user">
+                            <a href="/wishlist/my_wishlist" class="btn wishlist">
+                                <i class="fa fa-heart"></i>
+<!--                                <span>(0)</span>-->
+                            </a>
+                            <a href="/cart/my_cart" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+<!--                                <span>(0)</span>-->
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Bar End -->
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Get in Touch</h2>
+                            <div class="contact-info">
+                                <p><i class="fa fa-map-marker"></i>Human's Street, Mars</p>
+                                <p><i class="fa fa-envelope"></i>no@email.com</p>
+                                <p><i class="fa fa-phone"></i>+FFF-666-999</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Follow Me</h2>
+                            <div class="contact-info">
+                                <div class="social">
+                                    <a href="https://github.com/ninchy0"><i class="fab fa-github"></i></a>
+                                    <a href="https://www.tryhackme.com/p/ninchy0"><i class="fab fa-linux"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Developer's Info</h2>
+                            <ul>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Terms & Condition</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Purchase Info</h2>
+                            <ul>
+                                <li><a href="#">Payment Policy</a></li>
+                                <li><a href="#">Shipping Policy</a></li>
+                                <li><a href="#">Return Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div class="container-fluid" align="center">
+                <h2>Payment method</h2>
+                <br>
+
+                <div class="col-lg-6 col-md-6">
+                   <img src="{% static 'img/payment-method.png' %}">
+                </div>
+
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        <br>
+
+        <!-- Footer Bottom Start -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 copyright">
+                        <p>Copyright &copy; <a href="https://github.com/ninchy0">raka</a>.</p>
+                    </div>
+
+                    <div class="col-md-6 template-by">
+                        <p>Developed By <a href="https://github.com/ninchy0">raka</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'lib/slick/slick.min.js' %}"></script>
+
+        <!-- Template Javascript -->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

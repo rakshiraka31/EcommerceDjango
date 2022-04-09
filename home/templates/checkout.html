@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        
+        <!-- Checkout Start -->
+        <div class="checkout">
+            <form method="POST">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <form method="POST" >
+                            {% csrf_token %}
+                            {% for message in messages %}
+                                <center><font color = "green">{{message}}</font></center>
+                            {% endfor %}
+                        <div class="checkout-inner">
+                            <div class="billing-address">
+                                <h2>Billing Address</h2>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>First Name</label>
+                                        <input name="f_name" class="form-control" type="text" placeholder="First Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Last Name</label>
+                                        <input name="l_name" class="form-control" type="text" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>E-mail</label>
+                                        <input name="email" class="form-control" type="text" placeholder="E-mail">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Phone Number</label>
+                                        <input name="phone" class="form-control" type="text" placeholder="Phone Number">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Address</label>
+                                        <input name="address" class="form-control" type="text" placeholder="Address">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>ZIP Code</label>
+                                        <input name="zip_code" class="form-control" type="text" placeholder="ZIP Code">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="checkout-inner">
+
+                            <div class="checkout-summary">
+                                <h1>Cart Total</h1>
+                                {% for cart in my_cart %}
+                                <p style='background-color:{% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' %}> {{ cart.items.name }}<span>Rs.{{ cart.price}}</span></p>
+                                <p class="sub-total">Sub Total<span>${{ cart.items.price }}</span></p>
+                                {% endfor %}
+                                <p class="ship-cost">Shipping Cost<span>Rs.100</span></p>
+                                <h2>Grand Total<span>$100</span></h2>
+
+                            </div>
+
+
+                            <div class="checkout-payment">
+                                <div class="payment-methods">
+                                    <h1>Payment Methods</h1>
+                                    <div class="payment-method">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" id="payment-4" name="payment">
+                                            <label class="custom-control-label" for="payment-4">Direct Bank Transfer</label>
+                                        </div>
+                                        <div class="payment-content" id="payment-4-show">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input" id="payment-5" name="payment">
+                                            <label class="custom-control-label" for="payment-5">Cash on Delivery</label>
+                                        </div>
+                                        <div class="payment-content" id="payment-5-show">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tincidunt orci ac eros volutpat maximus lacinia quis diam.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkout-btn">
+                                    <button type="submit">Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                </form>
+        </div>
+        <!-- Checkout End -->
+
+       {% endblock %}

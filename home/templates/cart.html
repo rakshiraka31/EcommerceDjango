@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+        {% block content %}
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-wrap">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+        <!-- Cart Start -->
+        <div class="cart-page">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="cart-page-inner">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                    {% for cart in my_cart %}
+                                        <tr>
+                                            <td>
+                                                <div class="img">
+                                                    <a href="/product_detail/<slug>"><img src="{{ cart.items.image.url }}" alt="Image"></a>
+                                                    <p>{{ cart.items.name }}</p>
+                                                </div>
+                                            </td>
+                                            {% if cart.items.discounted_price > 0 %}
+                                            <td>Rs.{{ cart.items.discounted_price}}</td>
+                                            {% else %}
+                                            <td>Rs.{{ cart.items.price}}</td>
+                                            {% endif %}
+                                            <td>
+
+                                                <div class="qty">
+                                                    <a href="{{ cart.items.delete_one }}"><button class="btn-minus"><i class="fa fa-minus"></i></button></a>
+                                                    <input type="text" value="{{ cart.quantity }}">
+                                                    <a href="{{ cart.items.add_to_cart}}"><button class="btn-plus"><i class="fa fa-plus"></i></button></a>
+                                                </div>
+
+                                            </td>
+                                            <td>Rs.{{ cart.total }}</td>
+                                            <td>
+                                                <a href = "/cart/delete_cart/{{cart.slug}}">
+                                                <button><i class="fa fa-trash"></i></button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="cart-page-inner">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="cart-summary">
+                                        <div class="cart-content">
+                                            <h1>Cart Summary</h1>
+                                            {% for cart in my_cart %}
+                                            <p>{{ cart.items.name }} <span>Rs.{{ cart.total }}</span></p>
+                                            {% endfor %}
+
+                                           <h2>Sub Total<span>Rs.
+
+                                           </span></h2>
+
+                                        </div>
+
+                                        <div class="cart-btn">
+                                            <a href="/product_list"><button>Update Cart</button></a>
+                                            <a href="checkout"> <button>Checkout</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart End -->
+
+        {% endblock %}
